@@ -4,7 +4,7 @@ import { PlusIcon } from '@heroicons/react/24/outline'
 
 const Card = ({ data: {category, title, price, images} }) => {
     
-    const { count, setCount } = useContext(ShoppingCartContext)
+    const { count, setCount, openProductDetail } = useContext(ShoppingCartContext)
     
     return (
         <div className='bg-white cursor-pointer w-56 h-60'>
@@ -12,7 +12,9 @@ const Card = ({ data: {category, title, price, images} }) => {
                 <span className='absolute bottom-0 left-0 bg-white/60 rounded-lg text-xs m-2 px-3 py-0.5'>
                     {category.name}
                 </span>
-                <img className='w-full h-full object-cover rounded-lg' src={images[0]} alt={title} />
+                <img
+                    className='w-full h-full object-cover rounded-lg' src={images[0]} alt={title}
+                    onClick={openProductDetail}/>
                 <button
                     className='absolute top-0 right-0 bg-white rounded-full w-6 h-6 m-2 p-1'
                     onClick={()=>setCount(count+1)}>
