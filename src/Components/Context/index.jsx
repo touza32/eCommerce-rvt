@@ -7,6 +7,7 @@ const ShoppingCartProvider = ({ children }) => {
     const [count, setCount] = useState(0)
     const [isProductDetailOpened, setIsProductDetailOpened] = useState(false)
     const [productToShow, setProductToShow] = useState({images:[]})
+    const [cartProducts, setCartProducts] = useState([])
 
     const openProductDetail = () => setIsProductDetailOpened(true)
     const closeProductDetail = () => setIsProductDetailOpened(false)
@@ -19,7 +20,9 @@ const ShoppingCartProvider = ({ children }) => {
             openProductDetail,
             closeProductDetail,
             productToShow,
-            setProductToShow
+            setProductToShow,
+            cartProducts,
+            setCartProducts
         }}>
             {children}
         </ShoppingCartContext.Provider>
