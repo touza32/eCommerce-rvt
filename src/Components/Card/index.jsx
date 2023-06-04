@@ -8,17 +8,23 @@ const Card = ({ data: {category, title, price, images}, data }) => {
         count,
         setCount,
         openProductDetail,
+        closeProductDetail,
         setProductToShow,
         cartProducts,
-        setCartProducts
+        setCartProducts,
+        openCheckout,
+        closeCheckout
     } = useContext(ShoppingCartContext)
         
     const showProduct = () => {
+        closeCheckout()
         openProductDetail()
         setProductToShow(data)
     }
 
     const addProductToCart = () => {
+        closeProductDetail()
+        openCheckout()
         setCount(count+1)
         setCartProducts([...cartProducts, data])
     }
