@@ -5,7 +5,20 @@ import OrderCard from '../OrderCard'
 
 const Checkout = () => {
 
-    const { isCheckoutOpened, closeCheckout, cartProducts } = useContext(ShoppingCartContext)
+    const {
+        isCheckoutOpened,
+        closeCheckout,
+        cartProducts,
+        setCartProducts,
+        count,
+        setCount
+    } = useContext(ShoppingCartContext)
+
+    const handleDelete = (id) => {
+        const filteredProducts = cartProducts.filter(product => product.id != id)
+        setCartProducts(filteredProducts)
+        setCount(count - 1)
+    }
 
     return (
         <aside className={isCheckoutOpened ? 'flex flex-col bg-white border border-black rounded-lg  w-[360px] fixed right-0 top-[68px] h-[calc(100vh-68px)]' : 'hidden'}>
@@ -18,7 +31,11 @@ const Checkout = () => {
             <div className='px-6 gap-3 overflow-y-scroll'>
                 {
                     cartProducts.map(product => (
-                        <OrderCard key={product.id} data={product} />
+                        <OrderCard
+                            key={product.id}
+                            data={product}
+                            handleDelete={handleDelete}
+                        />
                     ))
                 }
             </div>
