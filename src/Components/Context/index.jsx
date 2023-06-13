@@ -6,15 +6,16 @@ const ShoppingCartProvider = ({ children }) => {
 
     const [count, setCount] = useState(0)
     const [isProductDetailOpened, setIsProductDetailOpened] = useState(false)
-    const [productToShow, setProductToShow] = useState({images:[]})
+    const [productToShow, setProductToShow] = useState({ images: [] })
     const [cartProducts, setCartProducts] = useState([])
     const [isCheckoutOpened, setIsCheckoutOpened] = useState(false)
+    const [order, setOrder] = useState([])
 
     const openProductDetail = () => setIsProductDetailOpened(true)
     const closeProductDetail = () => setIsProductDetailOpened(false)
     const openCheckout = () => setIsCheckoutOpened(true)
     const closeCheckout = () => setIsCheckoutOpened(false)
-    
+
     return (
         <ShoppingCartContext.Provider value={{
             count,
@@ -28,7 +29,9 @@ const ShoppingCartProvider = ({ children }) => {
             setCartProducts,
             isCheckoutOpened,
             openCheckout,
-            closeCheckout
+            closeCheckout,
+            order,
+            setOrder
         }}>
             {children}
         </ShoppingCartContext.Provider>
