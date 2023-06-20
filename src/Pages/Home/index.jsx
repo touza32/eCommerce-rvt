@@ -6,7 +6,23 @@ import ProductDetail from '../../Components/ProductDetail'
 
 function Home() {
 
-  const { items, setSearchByProduct } = useContext(ShoppingCartContext)
+  const { items, setSearchByTitle, searchByTitle, filteredItems } = useContext(ShoppingCartContext)
+
+  const renderProducts = () => {
+    if (searchByTitle != '') {
+      if (filteredItems?.length > 0) {
+        return filteredItems?.map(item => (
+          <Card key={item.id} data={item} />
+        ))
+      } else {
+        return <span className='font-light w-80'>Sorry, we don't have that product =(</span>
+      }
+    } else {
+      return items?.map(item => (
+        <Card key={item.id} data={item} />
+      ))
+    }
+  }
 
   return (
     <Layout>
@@ -15,13 +31,9 @@ function Home() {
         type='text'
         placeholder='Search a product'
         className='w-80 p-4 mb-4 border border-black rounded-lg'
-        onChange={(event) => setSearchByProduct(event.target.value)} />
+        onChange={(event) => setSearchByTitle(event.target.value)} />
       <div className='grid grid-cols-4 gap-4 w-full max-w-screen-lg'>
-        {
-          items?.map(item => (
-            <Card key={item.id} data={item} />
-          ))
-        }
+        {renderProducts()}
       </div>
       <ProductDetail />
     </Layout>
