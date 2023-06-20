@@ -13,6 +13,7 @@ const ShoppingCartProvider = ({ children }) => {
     const [items, setItems] = useState(null)
     const [filteredItems, setFilteredItems] = useState(null)
     const [searchByTitle, setSearchByTitle] = useState('')
+    const [searchByCategory, setSearchByCategory] = useState('')
 
     const openProductDetail = () => setIsProductDetailOpened(true)
     const closeProductDetail = () => setIsProductDetailOpened(false)
@@ -26,8 +27,21 @@ const ShoppingCartProvider = ({ children }) => {
     }, [])
 
     useEffect(() => {
-        if (searchByTitle != '') setFilteredItems(items?.filter(item => item.title.toLowerCase().includes(searchByTitle.toLowerCase())))
-    }, [searchByTitle])
+        if (searchByTitle && searchByCategory) {
+            setFilteredItems(items
+                ?.filter(item => item.title.toLowerCase()
+                    .includes(searchByTitle.toLowerCase()) && item.category.name.toLowerCase() === searchByCategory))
+        }
+        if (searchByTitle && !searchByCategory) {
+            setFilteredItems(items?.filter(item => item.title.toLowerCase().includes(searchByTitle.toLowerCase())))
+        }
+        if (!searchByTitle && searchByCategory) {
+            setFilteredItems(items?.filter(item => item.category.name.toLowerCase() === searchByCategory))
+        }
+        if (!searchByTitle && !searchByCategory) {
+            setFilteredItems(items)
+        }
+    }, [searchByTitle, searchByCategory])
 
     return (
         <ShoppingCartContext.Provider value={{
@@ -49,7 +63,9 @@ const ShoppingCartProvider = ({ children }) => {
             setItems,
             searchByTitle,
             setSearchByTitle,
-            filteredItems
+            filteredItems,
+            searchByCategory,
+            setSearchByCategory
         }}>
             {children}
         </ShoppingCartContext.Provider>

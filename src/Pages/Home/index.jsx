@@ -1,4 +1,5 @@
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
+import { useParams } from 'react-router-dom'
 import { ShoppingCartContext } from '../../Components/Context'
 import Layout from '../../Components/Layout'
 import Card from '../../Components/Card'
@@ -6,28 +7,28 @@ import ProductDetail from '../../Components/ProductDetail'
 
 function Home() {
 
-  const { items, setSearchByTitle, searchByTitle, filteredItems } = useContext(ShoppingCartContext)
+  const { setSearchByTitle, filteredItems, setSearchByCategory } = useContext(ShoppingCartContext)
+  const { categoryName } = useParams()
 
   const renderProducts = () => {
-    if (searchByTitle != '') {
-      if (filteredItems?.length > 0) {
-        return filteredItems?.map(item => (
-          <Card key={item.id} data={item} />
-        ))
-      } else {
-        return <span className='font-light w-80'>Sorry, we don't have that product =(</span>
-      }
-    } else {
-      return items?.map(item => (
+    if (filteredItems?.length > 0) {
+      return filteredItems?.map(item => (
         <Card key={item.id} data={item} />
       ))
+    } else {
+      return <span className='font-light w-80'>Sorry, we don't have that product =(</span>
     }
   }
+
+  useEffect(() => {
+    setSearchByCategory(categoryName)
+  }, [categoryName])
 
   return (
     <Layout>
       <h1 className='font-medium text-xl mb-4'>Principal products</h1>
       <input
+        id='searchByTitle'
         type='text'
         placeholder='Search a product'
         className='w-80 p-4 mb-4 border border-black rounded-lg'
