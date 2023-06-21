@@ -7,7 +7,7 @@ import ProductDetail from '../../Components/ProductDetail'
 
 function Home() {
 
-  const { setSearchByTitle, filteredItems, setSearchByCategory } = useContext(ShoppingCartContext)
+  const { searchByTitle, setSearchByTitle, filteredItems, setSearchByCategory } = useContext(ShoppingCartContext)
   const { categoryName } = useParams()
 
   const renderProducts = () => {
@@ -22,6 +22,7 @@ function Home() {
 
   useEffect(() => {
     setSearchByCategory(categoryName)
+    setSearchByTitle('')
   }, [categoryName])
 
   return (
@@ -32,6 +33,7 @@ function Home() {
         type='text'
         placeholder='Search a product'
         className='w-80 p-4 mb-4 border border-black rounded-lg'
+        value={searchByTitle}
         onChange={(event) => setSearchByTitle(event.target.value)} />
       <div className='grid grid-cols-4 gap-4 w-full max-w-screen-lg'>
         {renderProducts()}
