@@ -11,7 +11,9 @@ function MyOrders() {
 
   return (
     <Layout>
-      MyOrders
+      <h1 className='font-medium text-xl mb-4'>
+        MyOrders
+      </h1>
       <div>
         {
           order.map((order, index) => (
