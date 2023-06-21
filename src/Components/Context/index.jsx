@@ -41,7 +41,7 @@ const ShoppingCartProvider = ({ children }) => {
         if (!searchByTitle && !searchByCategory) {
             setFilteredItems(items)
         }
-    }, [searchByTitle, searchByCategory])
+    }, [items, searchByTitle, searchByCategory])
 
     return (
         <ShoppingCartContext.Provider value={{
